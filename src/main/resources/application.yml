@@ -1,0 +1,43 @@
+logging:
+  level:
+    ROOT: info
+    org.hibernate.SQL: DEBUG
+    fr.tid.sonify: DEBUG
+
+spring:
+  profiles:
+    active: dev
+  application:
+    name: sonify
+  datasource:
+    type: com.zaxxer.hikari.HikariDataSource
+    url: jdbc:postgresql://${POSTGRES_URL}:5432/${POSTGRES_DB}
+    username: ${POSTGRES_USERNAME}
+    password: ${POSTGRES_PASSWORD}
+    hikari:
+      poolName: Hikari
+      auto-commit: false
+  data:
+    jpa:
+      repositories:
+        bootstrap-mode: deferred
+  jpa:
+    open-in-view: false
+    hibernate:
+      ddl-auto: none
+    properties:
+      hibernate:
+        default_schema: sonify
+  liquibase:
+    contexts: dev
+    change-log: classpath:db/changelog/master.xml
+    default-schema: sonify
+    enabled: true
+  #    drop-first: true
+  servlet:
+    multipart:
+      enabled: true
+      max-file-size: 100MB
+      max-request-size: 100MB
+server:
+  port: 8090
