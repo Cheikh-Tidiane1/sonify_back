@@ -14,7 +14,6 @@ import java.time.Instant;
 @EntityListeners(AuditingEntityListener.class)
 @Getter
 @Setter
-
 public abstract class AbstractAuditingEntity <T> implements Serializable {
     public abstract T getId();
 
