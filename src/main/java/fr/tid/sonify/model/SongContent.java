@@ -1,14 +1,8 @@
 package fr.tid.sonify.model;
 import jakarta.persistence.*;
-import lombok.*;
 import java.io.Serializable;
 
 @Entity
-@Getter
-@Setter
-@NoArgsConstructor
-@AllArgsConstructor
-@Builder
 @Table(name = "song_content")
 public class SongContent implements Serializable {
     @Id
@@ -27,4 +21,35 @@ public class SongContent implements Serializable {
     @Column(name = "file_content_type")
     private String fileContentType;
 
+    public Long getSongId() {
+        return songId;
+    }
+
+    public void setSongId(Long songId) {
+        this.songId = songId;
+    }
+
+    public String getFileContentType() {
+        return fileContentType;
+    }
+
+    public void setFileContentType(String fileContentType) {
+        this.fileContentType = fileContentType;
+    }
+
+    public byte[] getFile() {
+        return file;
+    }
+
+    public void setFile(byte[] file) {
+        this.file = file;
+    }
+
+    public Song getSong() {
+        return song;
+    }
+
+    public void setSong(Song song) {
+        this.song = song;
+    }
 }

@@ -1,5 +1,4 @@
 package fr.tid.sonify.mapper;
-
 import fr.tid.sonify.dto.ReadUserDto;
 import fr.tid.sonify.model.User;
 import org.mapstruct.Mapper;

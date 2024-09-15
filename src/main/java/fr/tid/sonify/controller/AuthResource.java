@@ -21,11 +21,8 @@ import java.util.Map;
 @RequestMapping("/api")
 public class AuthResource {
 
-
     private final UserService userService;
-
     private final ClientRegistration registration;
-
 
     public AuthResource(UserService userService, ClientRegistrationRepository registrations) {
         this.userService = userService;

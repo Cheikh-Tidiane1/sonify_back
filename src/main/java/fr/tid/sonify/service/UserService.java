@@ -1,24 +1,26 @@
 package fr.tid.sonify.service;
-
 import fr.tid.sonify.dto.ReadUserDto;
 import fr.tid.sonify.mapper.UserMapper;
 import fr.tid.sonify.model.User;
 import fr.tid.sonify.repository.UserRepository;
-import lombok.AllArgsConstructor;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.oauth2.core.user.OAuth2User;
 import org.springframework.stereotype.Service;
-
 import java.time.Instant;
 import java.util.Map;
 import java.util.Optional;
 
-@AllArgsConstructor
+
 @Service
 public class UserService {
 
     private final UserRepository userRepository;
     private final UserMapper userMapper;
+
+    public UserService(UserRepository userRepository, UserMapper userMapper) {
+        this.userRepository = userRepository;
+        this.userMapper = userMapper;
+    }
 
 
     private User mapOauth2AttributesToUser(Map<String, Object> oauth2Attributes){
@@ -30,17 +32,17 @@ public class UserService {
         }
 
         if(oauth2Attributes.get("given_name") != null){
-            user.setFirstName((String)oauth2Attributes.get("given_name"));
+            user.setFirstName((String) oauth2Attributes.get("given_name"));
         }else if(oauth2Attributes.get("name") != null){
-            user.setFirstName((String)oauth2Attributes.get("given_name"));
+            user.setFirstName((String) oauth2Attributes.get("given_name"));
         }
 
         if(oauth2Attributes.get("family_name") != null){
-            user.setLastName((String)oauth2Attributes.get("family_name"));
+            user.setLastName((String) oauth2Attributes.get("family_name"));
         }
 
         if(oauth2Attributes.get("email") != null){
-            user.setEmail((String)oauth2Attributes.get("email"));
+            user.setEmail((String) oauth2Attributes.get("email"));
         }else if(sub.contains("|") && (username != null && username.contains("@"))){
             user.setEmail(username);
         }else{
@@ -48,7 +50,7 @@ public class UserService {
         }
 
         if(oauth2Attributes.get("picture") != null){
-            user.setImageUrl((String)oauth2Attributes.get("picture"));
+            user.setImageUrl((String) oauth2Attributes.get("picture"));
         }
 
         return user;

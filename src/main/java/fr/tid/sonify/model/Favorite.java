@@ -1,15 +1,9 @@
 package fr.tid.sonify.model;
 import jakarta.persistence.*;
-import lombok.*;
 import java.io.Serializable;
 import java.util.UUID;
 
 @Entity
-@Getter
-@Setter
-@NoArgsConstructor
-@AllArgsConstructor
-@Builder
 @Table(name = "favorite_song")
 @IdClass(FavoriteId.class)
 public class Favorite  implements Serializable {
@@ -18,4 +12,20 @@ public class Favorite  implements Serializable {
     @Id
     @Column(name = "user_email")
     private String userEmail;
+
+    public UUID getSongPublicId() {
+        return songPublicId;
+    }
+
+    public void setSongPublicId(UUID songPublicId) {
+        this.songPublicId = songPublicId;
+    }
+
+    public String getUserEmail() {
+        return userEmail;
+    }
+
+    public void setUserEmail(String userEmail) {
+        this.userEmail = userEmail;
+    }
 }

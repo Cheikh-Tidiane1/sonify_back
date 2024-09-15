@@ -1,5 +1,4 @@
 package fr.tid.sonify.mapper;
-
 import org.mapstruct.Mapper;
 
 @Mapper(componentModel = "spring")
