@@ -1,6 +1,7 @@
 package fr.tid.sonify.service;
 import fr.tid.sonify.dto.ReadSongInfoDTO;
 import fr.tid.sonify.dto.SaveSongDto;
+import fr.tid.sonify.dto.SongContentDTO;
 import fr.tid.sonify.mapper.SongContentMapper;
 import fr.tid.sonify.mapper.SongMapper;
 import fr.tid.sonify.model.Song;
@@ -11,6 +12,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.Optional;
+import java.util.UUID;
 
 @Service
 @Transactional
@@ -42,5 +45,10 @@ public class SongService {
                 .stream()
                 .map(songMapper::songToReadSongInfoDTO)
                 .toList();
+    }
+
+    public Optional<SongContentDTO> getOneByPublicId(UUID publidId){
+        Optional<SongContent> oneByPublicId = this.songContentRepository.findOneByPublicId(publidId);
+        return oneByPublicId.map(songContentMapper::songContentToSongContentDTO);
     }
 }

@@ -2,6 +2,7 @@ package fr.tid.sonify.controller;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import fr.tid.sonify.dto.ReadSongInfoDTO;
 import fr.tid.sonify.dto.SaveSongDto;
+import fr.tid.sonify.dto.SongContentDTO;
 import fr.tid.sonify.service.SongService;
 import fr.tid.sonify.service.UserService;
 import jakarta.validation.ConstraintViolation;
@@ -14,7 +15,9 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import java.io.IOException;
 import java.util.List;
+import java.util.Optional;
 import java.util.Set;
+import java.util.UUID;
 import java.util.stream.Collectors;
 
 @RestController
@@ -59,5 +62,12 @@ public class SongResource {
     @GetMapping("/songs")
     public ResponseEntity<List<ReadSongInfoDTO>> getAll() {
         return ResponseEntity.ok(songService.getAll());
+    }
+
+    @GetMapping("song/get-content")
+    public ResponseEntity<SongContentDTO> getOneByPublicId(@RequestParam UUID publicId) {
+        Optional<SongContentDTO> oneByPublicId = this.songService.getOneByPublicId(publicId);
+        return oneByPublicId.map(ResponseEntity::ok).orElseGet(() -> ResponseEntity.of(ProblemDetail.forStatusAndDetail(HttpStatus.BAD_REQUEST, "UUID UNKNOWN !")).build());
+
     }
 }
